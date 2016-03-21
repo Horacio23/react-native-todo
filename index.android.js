@@ -49,6 +49,16 @@ class MyFirstProject extends Component {
     this.nav.pop();
   }
 
+  onDone(todo) {
+    console.log('todo was completed',todo.task);
+    const filteredTodos =
+      this.state.todos.filter( (filterTodos) => {
+        return filterTodos !== todo;
+      });
+
+    this.setState({ 'todos': filteredTodos });
+  }
+
   renderScene(route, nav) {
     switch (route.name) {
       case 'taskform':
@@ -61,6 +71,7 @@ class MyFirstProject extends Component {
       default:
         return (
           <TaskList
+            onDone={this.onDone.bind(this)}
             onAddStarted={this.onAddStarted.bind(this)}
             todos={this.state.todos} />
         )
